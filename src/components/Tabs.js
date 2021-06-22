@@ -82,12 +82,7 @@ const Tabs = ({ nodeData: { children, options = {} }, ...rest }) => {
   return (
     <>
       <div ref={scrollAnchorRef} aria-hidden="true"></div>
-      <StyledTabs
-        aria-label={`Tabs to describe usage of ${tabsetName}`}
-        isHidden={isHidden}
-        selected={activeTab}
-        setSelected={handleClick}
-      >
+      <div aria-label={`Tabs to describe usage of ${tabsetName}`}>
         {children.map((tab) => {
           if (tab.name !== 'tab') {
             return null;
@@ -98,14 +93,17 @@ const Tabs = ({ nodeData: { children, options = {} }, ...rest }) => {
               ? tab.argument.map((arg, i) => <ComponentFactory {...rest} key={`${tabId}-arg-${i}`} nodeData={arg} />)
               : tabId;
           return (
-            <LeafyTab key={tabId} name={tabTitle}>
-              {tab.children.map((child, i) => (
-                <ComponentFactory {...rest} key={`${tabId}-${i}`} nodeData={child} />
-              ))}
-            </LeafyTab>
+            <div>
+              <strong>{tabTitle}</strong>
+              <div style={{ marginLeft: '2em' }}>
+                {tab.children.map((child, i) => (
+                  <ComponentFactory {...rest} key={`${tabId}-${i}`} nodeData={child} />
+                ))}
+              </div>
+            </div>
           );
         })}
-      </StyledTabs>
+      </div>
     </>
   );
 };
