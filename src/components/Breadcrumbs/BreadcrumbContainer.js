@@ -45,7 +45,7 @@ const BreadcrumbContainer = ({ homeCrumb, lastCrumb }) => {
   // Our breadcrumbs representation is an array of crumbObjectShape || (array of crumbObjectShape)
   // The latter indicates a collapsed series of breadcrumbs.
   const breadcrumbs = React.useMemo(() => {
-    const crumbsCopy = Array.from([...crumbs]);
+    const crumbsCopy = Array.from(crumbs);
     if (crumbsCopy.length >= maxCrumbs && crumbsCopy.length > 2) {
       // A maximum of maxCrumbs breadcrumbs may be shown, so we collapse the first run of internal
       // crumbs into a single "…" crumb
