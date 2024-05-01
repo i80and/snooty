@@ -14,8 +14,9 @@ const StyledSlash = styled('span')`
   padding-right: ${theme.size.small};
 `;
 
-const Flexbox = styled('span')`
+const Flexbox = styled('div')`
   display: flex;
+  align-items: center;
 `;
 
 const MIN_BREADCRUMBS = 3;
@@ -44,7 +45,7 @@ const BreadcrumbContainer = ({ homeCrumb, lastCrumb }) => {
   // Our breadcrumbs representation is an array of crumbObjectShape || (array of crumbObjectShape)
   // The latter indicates a collapsed series of breadcrumbs.
   const breadcrumbs = React.useMemo(() => {
-    const crumbsCopy = Array.from(crumbs);
+    const crumbsCopy = Array.from([...crumbs]);
     if (crumbsCopy.length >= maxCrumbs && crumbsCopy.length > 2) {
       // A maximum of maxCrumbs breadcrumbs may be shown, so we collapse the first run of internal
       // crumbs into a single "…" crumb
@@ -70,6 +71,7 @@ const BreadcrumbContainer = ({ homeCrumb, lastCrumb }) => {
               <CollapsedBreadcrumbs crumbs={crumb}></CollapsedBreadcrumbs>
             ) : (
               <IndividualBreadcrumb
+                key={crumb.title}
                 crumb={crumb}
                 setIsExcessivelyTruncated={collapseBreadcrumbs}
                 onClick={() =>
